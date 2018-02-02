@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encode Engine", "Encode Engine\Encode Engine.csproj", "{FB51ED08-74EF-4606-AEE1-5DDBDA2D7EAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeEngine", "CodeEngine\CodeEngine.csproj", "{C9086A7D-B3FE-445B-B321-641D7437B776}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Encode_Engine", "Encode_Engine\Encode_Engine.vdproj", "{963161C9-E63E-47BA-A39D-A5D72D32574E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FB51ED08-74EF-4606-AEE1-5DDBDA2D7EAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB51ED08-74EF-4606-AEE1-5DDBDA2D7EAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB51ED08-74EF-4606-AEE1-5DDBDA2D7EAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB51ED08-74EF-4606-AEE1-5DDBDA2D7EAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9086A7D-B3FE-445B-B321-641D7437B776}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9086A7D-B3FE-445B-B321-641D7437B776}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9086A7D-B3FE-445B-B321-641D7437B776}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9086A7D-B3FE-445B-B321-641D7437B776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{963161C9-E63E-47BA-A39D-A5D72D32574E}.Debug|Any CPU.ActiveCfg = Debug
+		{963161C9-E63E-47BA-A39D-A5D72D32574E}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

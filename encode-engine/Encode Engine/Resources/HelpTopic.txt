@@ -1,0 +1,32 @@
+Encode Engine v1.0 Help Topic
+
+Encode Engine is a software developed by Myproduct company 
+which is willing to encode your personal files
+in order to prevent them from being read. You can put your personal
+files which contain security information such as password or banking
+account. When you use Encode Engine, you just need to remember only
+one "Encode String" which will decide how your file will be encoded.
+
+Only one password to remember all of your account and password or
+other security information is our purpose.
+
+User Guide
+
+1. When you run the software, you can open the main menu and
+turn to the file operation, open a text file which you want to
+encode or decode and put in your "Encode String" (just like a password).
+
+2. After you encode or decode, you can save your text to the
+file you have opened or choose another path to save.
+
+3. Different "Encode String" will encode the same text into
+different code. So your encoded file is safe because other person who
+don't know your "Encode String" cannot decode it correctly.
+
+4. Please remember your "Encode String" so you can decode all files
+that had been encoded under this "Encode String".
+
+
+Copyright Kira Qian
+Kira Work Station
+Myproduct company 8/30/2008
