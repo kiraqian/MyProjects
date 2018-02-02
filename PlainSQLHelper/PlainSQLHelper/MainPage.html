@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="Content/Site.css" />
+    <script type="text/javascript" src="scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript">
+        function onGetPlainSQLText() {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp = new XMLHttpRequest();
+            }
+            else {// code for IE6, IE5
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            document.getElementById("dvPlainText").innerHTML = "Please Wait...";
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && (xmlhttp.status == 200 || xmlhttp.status == 0)) {
+                    document.getElementById("dvPlainText").innerHTML = xmlhttp.responseText;
+                    onExpandCollapse();
+                }
+            }
+            var objName = document.getElementById("txtSpName").value
+            var level = document.getElementById("numLevel").value
+            xmlhttp.open("GET", "Default.aspx?objname=" + objName + "&lv=" + level, true);
+            xmlhttp.send();
+        }
+
+        function onExpandCollapse() {
+            var isOpen = $("details").attr("open");
+            if (isOpen == "open") {
+                $("details").attr("open", false);
+            } else {
+                $("details").attr("open", "open");
+            }
+        }
+
+        function showCurrNodeSum(event) {
+            var idVal = event.target.id;            
+            if (idVal != "dvPlainText") {
+                $("#lblCurrObj").html(idVal);
+            } else {
+                $("#lblCurrObj").html("");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="header">
+        <h1>Plain SQL Helper</h1>
+    </div>
+    <div class="contentblock">
+        <label class="text">Stored Procedure</label>        
+        <input class="text" id="txtSpName" type="text" />
+        <label>Depth</label>
+        <input id="numLevel" type="number" value="3"/>
+        <input class="button" id="btnAnalyse" type="button" value="Analyse" onclick="onGetPlainSQLText()" />
+        <input class="button" id="btnExpandCollapse" type="button" value="Expand/Collapse" onclick="onExpandCollapse()" />
+    </div>
+    <div>
+        <div style="position: fixed">Current Object: <label id="lblCurrObj"></label></div>
+    </div>
+    <div id="main" class="contentblock">
+        <div id="dvPlainText" onmouseover="showCurrNodeSum(event)">            
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+﻿/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 0px;
+    padding-bottom: 20px;
+    align-content: center;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+    .body-content {
+        padding: 0;
+    }
+}
+
+h1 {
+    font-family: Arial;
+    color: white;
+    margin: 0px 0px 0px 0px;
+}
+
+.text {
+    font-family: Arial;
+    color: black;
+    width: 200px;
+}
+
+.button {
+    font-family: Arial;
+    color: black;
+}
+
+div {
+    font-family: Arial;
+    margin-top: 10px;
+    padding-top: 5px;
+    width: 80%;
+}
+
+summary {
+    font-weight: 700;
+    color: red;
+}
+
+details {
+    cursor: pointer;
+}
+
+#header {
+    background: url(../Resources/header.png) no-repeat;
+    border-radius: 15px 15px 15px 15px;
+    width: 960px;
+    height: 51px;
+    margin: 5px auto;
+    padding: 10px 10px 0 20px;
+    position: relative;
+}
+
+.contentblock {
+    width: 960px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 10px 15px 15px 15px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -moz-box-shadow: 0 1px 2px #8493a6;
+    -webkit-box-shadow: 0 1px 2px #8493a6;
+    box-shadow: 0 1px 2px #8493a6;
+}

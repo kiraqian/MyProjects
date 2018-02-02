@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+  <Server>USCOVWSL901DB\SL901</Server>
+  <UserID>sa</UserID>
+  <Password>Sl901#</Password>
+  <DB>CSI_Demo_App</DB>
+</Settings>
