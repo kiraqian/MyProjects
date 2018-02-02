@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{3BDA3E16-BA13-4BA0-A67C-B82C0672D622}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForm", "TestForm\TestForm.csproj", "{7CAB80A3-0D05-4883-9292-12C38487C3E3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BDA3E16-BA13-4BA0-A67C-B82C0672D622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BDA3E16-BA13-4BA0-A67C-B82C0672D622}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BDA3E16-BA13-4BA0-A67C-B82C0672D622}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BDA3E16-BA13-4BA0-A67C-B82C0672D622}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CAB80A3-0D05-4883-9292-12C38487C3E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CAB80A3-0D05-4883-9292-12C38487C3E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CAB80A3-0D05-4883-9292-12C38487C3E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CAB80A3-0D05-4883-9292-12C38487C3E3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
