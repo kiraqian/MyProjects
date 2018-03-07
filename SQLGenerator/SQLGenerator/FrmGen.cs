@@ -28,6 +28,7 @@ namespace SQLGenerator
             dtCfg.Columns.Add("TemplateFile");
             dtCfg.Columns.Add("OutputFile");
             dgvConfig.DataSource = dtCfg;
+            dgvConfig.DataBindingComplete += DgvConfig_DataBindingComplete;
 
             try
             {
@@ -37,6 +38,15 @@ namespace SQLGenerator
             catch
             {
 
+            }
+        }
+
+        private void DgvConfig_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach(DataGridViewColumn column in dgvConfig.Columns)
+            {
+                DataGridViewTextBoxColumn txtColumn = (DataGridViewTextBoxColumn)column;
+                txtColumn.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             }
         }
 
