@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using SQLRunner.Ctrl;
@@ -17,6 +12,7 @@ namespace SQLRunner
     {
         private DataTable dtResults;
 
+        #region Methods
         public SQLRunner()
         {
             InitializeComponent();
@@ -25,9 +21,9 @@ namespace SQLRunner
 
         private void Init()
         {
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.MaximizeBox = false;
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
+            StartPosition = FormStartPosition.CenterScreen;
+            MaximizeBox = false;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
 
             dtResults = new DataTable();
             dtResults.Columns.Add("FileName");
@@ -62,6 +58,28 @@ namespace SQLRunner
             txtFolderPath.Text = folderPath;
         }
 
+        private string GetPreOrAfterRunScriptContent(string preOrAfterScriptFileName)
+        {
+            string content = string.Empty;
+            try
+            {
+                content = File.ReadAllText(preOrAfterScriptFileName);
+            }
+            catch (Exception exp)
+            {
+
+            }
+            return content;
+        }
+
+        private void UpdateDBList()
+        {
+            List<string> dbNameList = Controller.GetDBNameList(txtServer.Text, txtUserName.Text, txtPassword.Text);
+            cmbDatabase.DataSource = dbNameList;
+        }
+        #endregion
+
+        #region Event Handle
         private void btnTestConnection_Click(object sender, EventArgs e)
         {
             string errMsg;
@@ -95,7 +113,7 @@ namespace SQLRunner
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            Controller.BuildDBConnectionString(txtServer.Text, cmbDatabase.Text, txtUserName.Text, txtPassword.Text);
+            Controller.BuildDBConnectionString(txtServer.Text, cmbDatabase.Text, txtUserName.Text, txtPassword.Text, ckWinAuth.Checked);
             if (dtResults == null || dtResults.Rows.Count == 0)
             {
                 return;
@@ -104,7 +122,6 @@ namespace SQLRunner
             int totalCount = dtResults.Rows.Count;
             int errCount = 0;
             progressBar.Maximum = totalCount - 1;
-            //txtTotalCount.Text = totalCount.ToString();
             DateTime startTime = System.DateTime.Now;
 
             string preRunScriptContent = "";
@@ -149,30 +166,18 @@ namespace SQLRunner
                     errCount += 1;
                 }
 
-                //txtCurrentItem.Text = dtResults.Rows[i]["SpName"].ToString();
-                //txtProcessed.Text = (i + 1).ToString();
-                //txtLeftCount.Text = (totalCount - i - 1).ToString();
-                //txtErrCount.Text = errCount.ToString();
                 progressBar.Value = i;
                 Application.DoEvents();
             }
 
-            //DateTime endTime = System.DateTime.Now;
-            //TimeSpan durTime = endTime - startTime;
-            //txtTotalTime.Text = durTime.TotalSeconds.ToString();
-            //txtSecPerCount.Text = (durTime.TotalSeconds / totalCount).ToString();
             MessageBox.Show("Execute Completed!");
-        }
-
-        private void UpdateDBList()
-        {
-            List<string> dbNameList = Controller.GetDBNameList(txtServer.Text, txtUserName.Text, txtPassword.Text);
-            cmbDatabase.DataSource = dbNameList;
-        }
+        }        
 
         private void cmbDatabase_DropDown(object sender, EventArgs e)
         {
+            string selectedText = cmbDatabase.Text;
             UpdateDBList();
+            cmbDatabase.Text = selectedText;
         }
 
         private void btnSelectDir_Click(object sender, EventArgs e)
@@ -196,19 +201,6 @@ namespace SQLRunner
                 MessageBox.Show(exp.Message);
             }
         }
-
-        private string GetPreOrAfterRunScriptContent(string preOrAfterScriptFileName)
-        {
-            string content = string.Empty;
-            try
-            {
-                content = File.ReadAllText(preOrAfterScriptFileName);
-            }
-            catch (Exception exp)
-            {
-
-            }
-            return content;
-        }
+        #endregion
     }
 }

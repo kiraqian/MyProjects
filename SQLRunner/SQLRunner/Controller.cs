@@ -16,9 +16,9 @@ namespace SQLRunner.Ctrl
     {
         public static string DBConnectionString;
 
-        public static void BuildDBConnectionString(string serverName, string dbName, string userName, string password)
+        public static void BuildDBConnectionString(string serverName, string dbName, string userName, string password, bool useWinAuthentication = false)
         {
-            DBConnectionString = SqlUtility.CreateConnectionString(serverName, dbName, userName, password);
+            DBConnectionString = SqlUtility.CreateConnectionString(serverName, dbName, userName, password, useWinAuthentication);
         }
 
         public static bool TestConnection(string server, string dbName, string userName, string password, out string errMsg)

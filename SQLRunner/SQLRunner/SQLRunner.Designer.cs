@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.gbDBCfg = new System.Windows.Forms.GroupBox();
+            this.ckAfterRun = new System.Windows.Forms.CheckBox();
+            this.ckPreRun = new System.Windows.Forms.CheckBox();
             this.btnSelectDir = new System.Windows.Forms.Button();
             this.txtFolderPath = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -46,8 +48,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.dgvResults = new System.Windows.Forms.DataGridView();
-            this.ckPreRun = new System.Windows.Forms.CheckBox();
-            this.ckAfterRun = new System.Windows.Forms.CheckBox();
+            this.ckWinAuth = new System.Windows.Forms.CheckBox();
             this.gbDBCfg.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
@@ -55,6 +56,7 @@
             // 
             // gbDBCfg
             // 
+            this.gbDBCfg.Controls.Add(this.ckWinAuth);
             this.gbDBCfg.Controls.Add(this.ckAfterRun);
             this.gbDBCfg.Controls.Add(this.ckPreRun);
             this.gbDBCfg.Controls.Add(this.btnSelectDir);
@@ -77,6 +79,26 @@
             this.gbDBCfg.TabIndex = 1;
             this.gbDBCfg.TabStop = false;
             this.gbDBCfg.Text = "Configuration";
+            // 
+            // ckAfterRun
+            // 
+            this.ckAfterRun.AutoSize = true;
+            this.ckAfterRun.Location = new System.Drawing.Point(559, 104);
+            this.ckAfterRun.Name = "ckAfterRun";
+            this.ckAfterRun.Size = new System.Drawing.Size(109, 17);
+            this.ckAfterRun.TabIndex = 15;
+            this.ckAfterRun.Text = "Include After-Run";
+            this.ckAfterRun.UseVisualStyleBackColor = true;
+            // 
+            // ckPreRun
+            // 
+            this.ckPreRun.AutoSize = true;
+            this.ckPreRun.Location = new System.Drawing.Point(450, 104);
+            this.ckPreRun.Name = "ckPreRun";
+            this.ckPreRun.Size = new System.Drawing.Size(103, 17);
+            this.ckPreRun.TabIndex = 14;
+            this.ckPreRun.Text = "Include Pre-Run";
+            this.ckPreRun.UseVisualStyleBackColor = true;
             // 
             // btnSelectDir
             // 
@@ -226,25 +248,15 @@
             this.dgvResults.Size = new System.Drawing.Size(818, 476);
             this.dgvResults.TabIndex = 0;
             // 
-            // ckPreRun
+            // ckWinAuth
             // 
-            this.ckPreRun.AutoSize = true;
-            this.ckPreRun.Location = new System.Drawing.Point(450, 76);
-            this.ckPreRun.Name = "ckPreRun";
-            this.ckPreRun.Size = new System.Drawing.Size(103, 17);
-            this.ckPreRun.TabIndex = 14;
-            this.ckPreRun.Text = "Include Pre-Run";
-            this.ckPreRun.UseVisualStyleBackColor = true;
-            // 
-            // ckAfterRun
-            // 
-            this.ckAfterRun.AutoSize = true;
-            this.ckAfterRun.Location = new System.Drawing.Point(559, 76);
-            this.ckAfterRun.Name = "ckAfterRun";
-            this.ckAfterRun.Size = new System.Drawing.Size(109, 17);
-            this.ckAfterRun.TabIndex = 15;
-            this.ckAfterRun.Text = "Include After-Run";
-            this.ckAfterRun.UseVisualStyleBackColor = true;
+            this.ckWinAuth.AutoSize = true;
+            this.ckWinAuth.Location = new System.Drawing.Point(450, 76);
+            this.ckWinAuth.Name = "ckWinAuth";
+            this.ckWinAuth.Size = new System.Drawing.Size(141, 17);
+            this.ckWinAuth.TabIndex = 16;
+            this.ckWinAuth.Text = "Windows Authentication";
+            this.ckWinAuth.UseVisualStyleBackColor = true;
             // 
             // SQLRunner
             // 
@@ -286,6 +298,7 @@
         private System.Windows.Forms.Button btnSelectDir;
         private System.Windows.Forms.CheckBox ckPreRun;
         private System.Windows.Forms.CheckBox ckAfterRun;
+        private System.Windows.Forms.CheckBox ckWinAuth;
     }
 }
 
