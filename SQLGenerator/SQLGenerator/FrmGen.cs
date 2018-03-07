@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Utility.SqlUtil;
 using Utility.XmlUtil;
-using Utility.StringUtil;
-using Utility.FileUtil;
 
 namespace SQLGenerator
 {
     public partial class FrmGen : Form
     {
+        #region Members
         private DataTable dtCfg;
         private string sqlConnString;
+        #endregion
 
+        #region Methods
         public FrmGen()
         {
             InitializeComponent();
@@ -41,6 +36,71 @@ namespace SQLGenerator
             }
         }
 
+        private void GenSQLByRow(DataTable configTable, string connString)
+        {
+            string selectionCmd;
+            string templateFile;
+            string outputFile;
+            string generatedSQLText = "";
+
+            DataTable dtTableData;
+
+            foreach (DataRow dr in configTable.Rows)
+            {
+                selectionCmd = dr["Selection"].ToString();
+                templateFile = dr["TemplateFile"].ToString();
+                outputFile = dr["OutputFile"].ToString();
+
+                dtTableData = GetTableDataBySelection(connString, selectionCmd);
+                generatedSQLText = GetGeneratedSQLText(dtTableData, templateFile);
+                File.WriteAllText(outputFile, generatedSQLText);
+            }
+        }
+
+        private string GetGeneratedSQLText(DataTable dtTableData, string templateFile)
+        {
+            string columnName;
+            string cellData;
+            string templateFileContent = File.ReadAllText(templateFile);
+            string rowString = templateFileContent;
+            string resultString = "";
+
+            string replacePrefix = "[###";
+            string replaceSuffix = "###]";
+
+            foreach (DataRow dr in dtTableData.Rows)
+            {
+                foreach (DataColumn dc in dtTableData.Columns)
+                {
+                    columnName = dc.ColumnName;
+                    if (Convert.IsDBNull(dr[columnName]))
+                    {
+                        cellData = "NULL";
+                        rowString = rowString.Replace("N'" + replacePrefix + columnName + replaceSuffix + "'", cellData);
+                        rowString = rowString.Replace("'" + replacePrefix + columnName + replaceSuffix + "'", cellData);
+                    }
+                    else
+                    {
+                        cellData = dr[columnName].ToString().Replace("'", "''");
+                        rowString = rowString.Replace(replacePrefix + columnName + replaceSuffix, cellData);
+                    }
+                }
+
+                resultString += rowString;
+                rowString = templateFileContent;
+            }
+            return resultString;
+        }
+
+        private DataTable GetTableDataBySelection(string connString, string selectionCmd)
+        {
+            string errMsg;
+            DataTable dtData = SqlUtility.QueryDBData(connString, selectionCmd, out errMsg);
+            return dtData;
+        }
+        #endregion
+
+        #region Event Handle
         private void DgvConfig_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             foreach(DataGridViewColumn column in dgvConfig.Columns)
@@ -69,68 +129,7 @@ namespace SQLGenerator
             }
         }
 
-        private void GenSQLByRow(DataTable configTable, string connString)
-        {
-            string selectionCmd;
-            string templateFile;
-            string outputFile;
-            string generatedSQLText = "";
-
-            DataTable dtTableData;
-
-            foreach(DataRow dr in configTable.Rows)
-            {
-                selectionCmd = dr["Selection"].ToString();
-                templateFile = dr["TemplateFile"].ToString();
-                outputFile = dr["OutputFile"].ToString();
-                
-                dtTableData = GetTableDataBySelection(connString, selectionCmd);
-                generatedSQLText = GetGeneratedSQLText(dtTableData, templateFile);
-                File.WriteAllText(outputFile, generatedSQLText);
-            }
-        }
-
-        private string GetGeneratedSQLText(DataTable dtTableData, string templateFile)
-        {
-            string columnName;
-            string cellData;
-            string templateFileContent = File.ReadAllText(templateFile);
-            string rowString = templateFileContent;
-            string resultString = "";            
-
-            string replacePrefix = "[###";
-            string replaceSuffix = "###]";
-
-            foreach (DataRow dr in dtTableData.Rows)
-            {
-                foreach (DataColumn dc in dtTableData.Columns)
-                {
-                    columnName = dc.ColumnName;
-                    if(Convert.IsDBNull(dr[columnName]))
-                    {
-                        cellData = "NULL";
-                        rowString = rowString.Replace("N'" + replacePrefix + columnName + replaceSuffix + "'", cellData);
-                        rowString = rowString.Replace("'" + replacePrefix + columnName + replaceSuffix + "'", cellData);
-                    }
-                    else
-                    {
-                        cellData = dr[columnName].ToString().Replace("'", "''");
-                        rowString = rowString.Replace(replacePrefix + columnName + replaceSuffix, cellData);
-                    }
-                }
-
-                resultString += rowString;
-                rowString = templateFileContent;
-            }
-            return resultString;
-        }
-
-        private DataTable GetTableDataBySelection(string connString, string selectionCmd)
-        {
-            string errMsg;
-            DataTable dtData = SqlUtility.QueryDBData(connString, selectionCmd, out errMsg);
-            return dtData;
-        }
+        
 
         private void FrmGen_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -144,5 +143,6 @@ namespace SQLGenerator
 
             }
         }
+        #endregion
     }
 }
