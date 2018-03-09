@@ -1,8 +1,8 @@
-IF OBJECT_ID('[dbo].[Tool_Msg_GenColumnCaptionMsgSp]') IS NOT NULL
-   DROP PROCEDURE Tool_Msg_GenColumnCaptionMsgSp
+IF OBJECT_ID('[dbo].[Tools_Msg_GenColumnCaptionMsgSp]') IS NOT NULL
+   DROP PROCEDURE Tools_Msg_GenColumnCaptionMsgSp
 GO
 
-CREATE PROCEDURE Tool_Msg_GenColumnCaptionMsgSp
+CREATE PROCEDURE Tools_Msg_GenColumnCaptionMsgSp
 (
    @TableOrViewName   NVARCHAR(100)
  , @DoCommit          INT = 0
