@@ -9,15 +9,15 @@ CREATE PROCEDURE [dbo].[Tools_GetFormFullPathSp]
 
 DECLARE @ResultTable TABLE
 (
-   ObjectID INT
- , ObjectName SYSNAME
- , FullPath   NVARCHAR(1000)
+   ObjectID     INT
+ , ObjectName   SYSNAME
+ , FullPath     NVARCHAR(1000)
 )
 
 DECLARE
-   @ObjID    INT
- , @ObjName  SYSNAME
- , @FullPath NVARCHAR(1000)
+   @ObjID      INT
+ , @ObjName    SYSNAME
+ , @FullPath   NVARCHAR(1000)
 
 INSERT INTO @ResultTable(ObjectID, ObjectName, FullPath)
 SELECT ObjectId, ObjectTextData, '' FROM ExplorerObjects
@@ -31,20 +31,18 @@ OPEN ret_cursor
 WHILE 1 = 1
 BEGIN
    FETCH ret_cursor INTO
-      @ObjID
-    , @ObjName
-    , @FullPath
+         @ObjID
+       , @ObjName
+       , @FullPath
 
-      IF @@FETCH_STATUS = -1
-          BREAK
+   IF @@FETCH_STATUS = -1
+       BREAK
 
-   SET @ObjName = ''
-   EXEC dbo.Tools_GetParentNodeSp
-        @NodeID = @ObjID
-      , @NodeText = @ObjName OUTPUT
-      , @ParentNodeID = NULL
+   EXEC dbo.Tools_GetNodeFullPathSp
+        @NodeID       = @ObjID
+      , @NodeFullPath = @FullPath OUTPUT
 
-   UPDATE @ResultTable SET FullPath = @ObjName
+   UPDATE @ResultTable SET FullPath = @FullPath
    WHERE ObjectId = @ObjID
 END
 CLOSE ret_cursor
@@ -56,19 +54,19 @@ GO
 
 
 
-IF OBJECT_ID('dbo.Tools_GetParentNodeSp') IS NOT NULL
-    DROP PROCEDURE [dbo].[Tools_GetParentNodeSp]
+IF OBJECT_ID('dbo.Tools_GetNodeFullPathSp') IS NOT NULL
+    DROP PROCEDURE [dbo].[Tools_GetNodeFullPathSp]
 GO
 
-CREATE PROCEDURE [dbo].[Tools_GetParentNodeSp]
+CREATE PROCEDURE [dbo].[Tools_GetNodeFullPathSp]
 (
    @NodeID         INT
- , @NodeText       NVARCHAR(1000) OUTPUT
- , @ParentNodeID   INT = NULL OUTPUT
+ , @NodeFullPath   NVARCHAR(1000)   OUTPUT
 ) AS
 
 DECLARE
-   @CurrentNodeText  NVARCHAR(1000)
+   @ParentNodeID      INT
+ , @CurrentNodeText   NVARCHAR(1000)
 
 SELECT
    @ParentNodeID    = ParentFolderId
@@ -78,13 +76,13 @@ WHERE ObjectId = @NodeID
 
 IF ISNULL(@CurrentNodeText, '') <> ''
 BEGIN
-   IF ISNULL(@NodeText, '') <> ''
+   IF ISNULL(@NodeFullPath, '') <> ''
    BEGIN
-      SET @NodeText = ISNULL(@CurrentNodeText, '') + ' -> ' + ISNULL(@NodeText, '')
+      SET @NodeFullPath = ISNULL(@CurrentNodeText, '') + ' -> ' + ISNULL(@NodeFullPath, '')
    END
    ELSE
    BEGIN
-      SET @NodeText = ISNULL(@CurrentNodeText, '')
+      SET @NodeFullPath = ISNULL(@CurrentNodeText, '')
    END
 END
 
@@ -94,10 +92,9 @@ BEGIN
 END
 ELSE
 BEGIN
-   EXEC [dbo].[Tools_GetParentNodeSp]
-        @NodeID = @ParentNodeID
-      , @NodeText = @NodeText OUTPUT
-      , @ParentNodeID = @ParentNodeID OUTPUT
+   EXEC [dbo].[Tools_GetNodeFullPathSp]
+        @NodeID   = @ParentNodeID
+      , @NodeFullPath = @NodeFullPath OUTPUT
 END
 
 GO
