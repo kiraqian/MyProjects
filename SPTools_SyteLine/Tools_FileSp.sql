@@ -28,11 +28,11 @@ GO
 
 
 
-IF OBJECT_ID('dbo.Tool_File_ReadAllTextSp') IS NOT NULL
-    DROP PROCEDURE [dbo].[Tool_File_ReadAllTextSp]
+IF OBJECT_ID('dbo.Tools_File_ReadAllTextSp') IS NOT NULL
+    DROP PROCEDURE [dbo].[Tools_File_ReadAllTextSp]
 GO
 
-CREATE PROCEDURE [dbo].[Tool_File_ReadAllTextSp]
+CREATE PROCEDURE [dbo].[Tools_File_ReadAllTextSp]
 (
    @FileFullName NVARCHAR(1000)
  , @FileContent  NVARCHAR(MAX) OUTPUT
@@ -74,5 +74,5 @@ Second Line
 Last Line.'
 
 DECLARE @Content nvarchar(1000)
-EXEC Tool_File_ReadAllTextSp '\\USCOVWSL901TS2\Shared\abc.txt', @Content OUTPUT
+EXEC Tools_File_ReadAllTextSp '\\USCOVWSL901TS2\Shared\abc.txt', @Content OUTPUT
 SELECT @Content
