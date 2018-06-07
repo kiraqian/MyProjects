@@ -27,9 +27,7 @@ namespace TestForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string formatStr = "{0:###,###,###,##0.00}";
-            string s = string.Format(formatStr, 5733.345);
-            MessageBox.Show(s);
+            DataTable dt = SqlUtility.GetDatabaseNameList("USCOVWCS10DB.infor.com", "sa", "SL", true);
         }
     }
 }

@@ -29,10 +29,19 @@ namespace Utility.SqlUtil
         #endregion
 
         #region GetDatabaseNameList
-        public static DataTable GetDatabaseNameList(string serverName, string userName, string password)
+        public static DataTable GetDatabaseNameList(string serverName, string userName, string password, bool useWinAuthentication = false)
         {
             DataTable dt = null;
-            string connStr = @"Data Source={0};User Id={1};Password={2}";
+            string connStr = "";
+            if(!useWinAuthentication)
+            {
+                connStr = @"Data Source={0};User Id={1};Password={2}";
+            }
+            else
+            {
+                connStr = @"Data Source={0};Trusted_Connection=True;";
+            }
+            
             connStr = string.Format(connStr, serverName, userName, password);
             SqlConnection sqlConn = new SqlConnection(connStr);
             try
