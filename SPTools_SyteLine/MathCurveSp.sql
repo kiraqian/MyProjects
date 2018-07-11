@@ -7,7 +7,7 @@ CREATE PROCEDURE dbo.MathCurveSp
    @DefFrom         DECIMAL(30, 10)
  , @DefTo           DECIMAL(30, 10)
  , @FunExpression   NVARCHAR(4000)
- , @StepLength      DECIMAL(10, 10) = 0.1
+ , @StepLength      DECIMAL(10, 5) = 0.1
 ) AS
 
 DECLARE
