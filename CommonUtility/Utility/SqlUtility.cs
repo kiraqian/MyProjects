@@ -283,6 +283,7 @@ namespace Utility.SqlUtil
                             cellVal = "NULL";
                             rowStr = rowStr.Replace("N'" + replacePrefix + columnName + replaceSuffix + "'", cellVal);
                             rowStr = rowStr.Replace("'" + replacePrefix + columnName + replaceSuffix + "'", cellVal);
+                            rowStr = rowStr.Replace(replacePrefix + columnName + replaceSuffix, cellVal);
                         }
                         else
                         {
