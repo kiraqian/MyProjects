@@ -27,7 +27,17 @@ namespace TestForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DataTable dt = SqlUtility.GetDatabaseNameList("USCOVWCS10DB.infor.com", "sa", "SL", true);
+            string sourcePath = @"D:\Files\Code\Development\csi";
+            string targetPath = @"D:\Temp\Output\Dep";
+            string connString = @"Server=USCOVWCS10DB.infor.com;Database=RS8380_CSI10;Trusted_Connection=True;";
+            string errMsg = "";
+            List<string> spAndFun = SqlUtility.GetAllSPAndFunNameInDB(connString, out errMsg);
+            List<string> views = SqlUtility.GetAllViewInDB(connString, out errMsg);
+            List<string> objList = new List<string>();
+            objList.AddRange(spAndFun);
+            //objList.AddRange(views);
+
+            SqlUtility.ProcessDBDependence(objList, @"D:\Temp\Output\CoitemChgStatSp.sp", sourcePath, targetPath);
         }
     }
 }

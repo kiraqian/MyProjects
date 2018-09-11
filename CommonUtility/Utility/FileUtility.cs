@@ -28,5 +28,21 @@ namespace Utility.FileUtil
             return fileName;
         }
         #endregion
+
+        public static string CopyFileByName(string sourcePath, string targetPath, string fileName)
+        {
+            targetPath = targetPath.TrimEnd(new char[] { '\\' }) + "\\";
+            DirectoryInfo dir = new DirectoryInfo(sourcePath);
+            FileInfo[] files = dir.GetFiles(fileName + ".s*", SearchOption.AllDirectories);
+            foreach (FileInfo file in files)
+            {
+                if (!File.Exists(targetPath + file.Name))
+                {
+                    file.CopyTo(targetPath + file.Name);
+                    return targetPath + file;
+                }
+            }
+            return "";
+        }
     }
 }

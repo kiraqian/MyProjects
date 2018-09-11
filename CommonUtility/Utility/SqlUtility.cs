@@ -406,13 +406,27 @@ namespace Utility.SqlUtil
         public static List<string> GetAllSPAndFunNameInDB(string connString, out string errMsg)
         {
             List<string> spFunList = new List<string>();            
-            string commText = @"SELECT LOWER(name) AS name FROM dbo.sysobjects WHERE (type = 'P')";
+            string commText = @"SELECT LOWER(name) AS name FROM dbo.sysobjects WHERE type IN ('P', 'FN')";
             DataTable dt = QueryDBData(connString, commText, out errMsg);
             foreach (DataRow dr in dt.Rows)
             {
                 spFunList.Add(dr[0].ToString());
             }
             return spFunList;
+        }
+        #endregion
+
+        #region GetAllViewInDB
+        public static List<string> GetAllViewInDB(string connString, out string errMsg)
+        {
+            List<string> viewList = new List<string>();
+            string commText = @"SELECT LOWER(name) AS name FROM dbo.sysobjects WHERE type IN ('V ')";
+            DataTable dt = QueryDBData(connString, commText, out errMsg);
+            foreach (DataRow dr in dt.Rows)
+            {
+                viewList.Add(dr[0].ToString());
+            }
+            return viewList;
         }
         #endregion
 
@@ -444,6 +458,38 @@ namespace Utility.SqlUtil
                 retList.Add(sqlText[i]);
             }
             return retList;
+        }
+        #endregion
+
+        #region ProcessDBDependence
+        public static void ProcessDBDependence(List<string> dbObjectList, string fileNameToProcess, string sourcePath,
+                                               string targetPath, List<string> dependObjectList = null)
+        {
+            if(dbObjectList.Count == 0)
+            {
+                return;
+            }
+
+            string[] fileTextInLine = File.ReadAllLines(fileNameToProcess);
+            for(int i = 0; i < fileTextInLine.Length; i++)
+            {
+                string[] words = fileTextInLine[i].Split(new char[] { ' ', '.', ',', '(', ')', '[', ']'});
+                for(int j = 0; j < words.Length; j++)
+                {
+                    if (dbObjectList.Contains(words[j].ToLower()))
+                    {
+                        string fileToProcess = FileUtil.FileUtility.CopyFileByName(sourcePath, targetPath, words[j]);
+                        if(dependObjectList != null)
+                        {
+                            dependObjectList.Add(words[j]);
+                        }
+                        if (!string.IsNullOrEmpty(fileToProcess) && fileToProcess != fileNameToProcess)
+                        {
+                            ProcessDBDependence(dbObjectList, fileToProcess, sourcePath, targetPath, dependObjectList);
+                        }
+                    }
+                }
+            }
         }
         #endregion
     }
