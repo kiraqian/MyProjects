@@ -37,7 +37,7 @@ namespace TestForm
             objList.AddRange(spAndFun);
             //objList.AddRange(views);
 
-            SqlUtility.ProcessDBDependence(objList, @"D:\Temp\Output\CoitemChgStatSp.sp", sourcePath, targetPath);
+            SqlUtility.ProcessDBDependence(objList, @"D:\Temp\Output\RS8380_PermissionsPurchasing.sql", sourcePath, targetPath);
         }
     }
 }

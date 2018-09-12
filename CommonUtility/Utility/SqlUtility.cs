@@ -473,9 +473,21 @@ namespace Utility.SqlUtil
             string[] fileTextInLine = File.ReadAllLines(fileNameToProcess);
             for(int i = 0; i < fileTextInLine.Length; i++)
             {
-                string[] words = fileTextInLine[i].Split(new char[] { ' ', '.', ',', '(', ')', '[', ']'});
+                // Do not process line start with comments mark.
+                if(fileTextInLine[i].Trim().StartsWith("*") || fileTextInLine[i].Trim().StartsWith("/"))
+                {
+                    continue;
+                }
+
+                string lineCode = SpecialCharReplace(fileTextInLine[i]);
+                string[] words = lineCode.Split(new char[] { ' ',  ','});
                 for(int j = 0; j < words.Length; j++)
                 {
+                    // Do not process word after comments mark.
+                    if(words[j] == "--")
+                    {
+                        break;
+                    }
                     if (dbObjectList.Contains(words[j].ToLower()))
                     {
                         string fileToProcess = FileUtil.FileUtility.CopyFileByName(sourcePath, targetPath, words[j]);
@@ -492,6 +504,18 @@ namespace Utility.SqlUtil
             }
         }
         #endregion
+
+        private static string SpecialCharReplace(string codeLine)
+        {
+            codeLine = codeLine.Replace("[dbo].", " ");
+            codeLine = codeLine.Replace("=dbo.", " ");
+            codeLine = codeLine.Replace(" dbo.", " ");
+            codeLine = codeLine.Replace("[", " ");
+            codeLine = codeLine.Replace("]", " ");
+            codeLine = codeLine.Replace("(", " ");
+            codeLine = codeLine.Replace(")", " ");
+            return codeLine;
+        }
     }
 
     public struct NameValuePair
