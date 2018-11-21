@@ -42,6 +42,7 @@
     <Compile Include="CommandLine.cs" />
     <Compile Include="FileUtility.cs" />
     <Compile Include="SourceControl.cs" />
+    <Compile Include="SqlScript.cs" />
     <Compile Include="SqlUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringUtility.cs" />
