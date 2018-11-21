@@ -1,0 +1,4 @@
+﻿          <QueryParameter Name="@pSite">
+            <Value>=Parameters!BG_SITEID.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>

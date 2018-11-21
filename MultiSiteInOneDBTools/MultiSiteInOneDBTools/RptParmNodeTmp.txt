@@ -1,0 +1,9 @@
+﻿    <ReportParameter Name="BG_SITEID">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>BG~SITEID~</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>BG~SITEID~</Prompt>
+    </ReportParameter>
