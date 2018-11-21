@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using Utility.FileUtil;
+using Utility.StringUtil;
 
 namespace Utility.SqlUtil
 {
@@ -199,6 +201,28 @@ namespace Utility.SqlUtil
             }
 
             return dtTableData;
+        }
+
+        public static DataSet QueryDBDataSet(string connString, string selectionCommand, out string errMsg)
+        {
+            errMsg = "";
+
+            SqlConnection sqlConn = new SqlConnection(connString);
+            SqlDataAdapter sqlDa = new SqlDataAdapter(selectionCommand, sqlConn);
+            DataSet dtTableDataSet = new DataSet();
+
+            try
+            {
+                sqlConn.Open();
+                sqlDa.Fill(dtTableDataSet);
+                sqlConn.Close();
+            }
+            catch (Exception exp)
+            {
+                errMsg = exp.Message;
+            }
+
+            return dtTableDataSet;
         }
         #endregion
 
@@ -416,6 +440,87 @@ namespace Utility.SqlUtil
         }
         #endregion
 
+        #region GetAllSPInDB
+        public static List<string> GetAllUserSPInDB(string connString, out string errMsg)
+        {
+            List<string> spFunList = new List<string>();
+            string commText = @"SELECT LOWER(name) AS name FROM dbo.sysobjects WHERE type = 'P'";
+            DataTable dt = QueryDBData(connString, commText, out errMsg);
+            foreach (DataRow dr in dt.Rows)
+            {
+                spFunList.Add(dr[0].ToString());
+            }
+            return spFunList;
+        }
+
+        private static List<string> GetAllSysSPInDB(string connString, out string errMsg)
+        {
+            List<string> spFunList = new List<string>();
+            string commText = @"SELECT LOWER(name) AS name FROM dbo.sysobjects WHERE type = 'P'";
+            DataTable dt = QueryDBData(connString, commText, out errMsg);
+            foreach (DataRow dr in dt.Rows)
+            {
+                spFunList.Add(dr[0].ToString());
+            }
+            return spFunList;
+        }
+        #endregion
+
+        #region AddDBObjPrefixForScript
+        public static string AddDBObjPrefixForScript(string codeContent, List<string> userSPList, List<string> sysSPList)
+        {
+            string[] lineString = StringUtility.TextToLinesString(codeContent);
+            string finalCodeContent = "";
+            bool codeBegin = false;
+            for(int i = 0; i < lineString.Length; i++)
+            {
+                if (lineString[i].Trim().ToUpper().Replace(" ", "").StartsWith("CREATEPROCEDURE") ||
+                    lineString[i].Trim().ToUpper().Replace(" ", "").StartsWith("CREATEFUNCTION") ||
+                    lineString[i].Trim().ToUpper().Replace(" ", "").StartsWith("CREATETRIGGER"))
+                {
+                    codeBegin = true;
+                }
+                string line = lineString[i];
+
+                if (codeBegin && !line.Trim().StartsWith("--"))
+                {
+                    finalCodeContent += AddDBObjPrefixForCode(line, userSPList, sysSPList);
+                }
+                else
+                {
+                    finalCodeContent += line;
+                }
+
+                if (i < lineString.Length - 1)
+                {
+                    finalCodeContent += "\r\n";
+                }
+            }
+            return finalCodeContent;
+        }
+        #endregion
+
+        public static string AddDBObjPrefixForCode(string codeLine, List<string> userSPList, List<string> sysSPList)
+        {
+            string finalCode = "";
+            finalCode = codeLine;
+            string[] words = codeLine.Split(new char[] { ' ', '(', ')', '=' }, StringSplitOptions.RemoveEmptyEntries);
+            for(int i = 0; i < words.Length; i++)
+            {
+                if(userSPList.Contains(words[i].ToLower().Trim(new char[] { '[', ']'})))
+                {
+                    finalCode = finalCode.Replace(words[i], "dbo." + words[i]);
+                }
+
+                if (sysSPList.Contains(words[i].Trim(new char[] { '[', ']' })))
+                {
+                    finalCode = finalCode.Replace(words[i], "sys." + words[i]);
+                }
+            }
+
+            return finalCode;
+        }
+
         #region GetAllViewInDB
         public static List<string> GetAllViewInDB(string connString, out string errMsg)
         {
@@ -463,38 +568,36 @@ namespace Utility.SqlUtil
 
         #region ProcessDBDependence
         public static void ProcessDBDependence(List<string> dbObjectList, string fileNameToProcess, string sourcePath,
-                                               string targetPath, List<string> dependObjectList = null)
+                                               string targetPath, List<string> dependObjectList)
         {
-            if(dbObjectList.Count == 0)
+            if (dbObjectList.Count == 0)
             {
                 return;
             }
 
             string[] fileTextInLine = File.ReadAllLines(fileNameToProcess);
-            for(int i = 0; i < fileTextInLine.Length; i++)
+            for (int i = 0; i < fileTextInLine.Length; i++)
             {
                 // Do not process line start with comments mark.
-                if(fileTextInLine[i].Trim().StartsWith("*") || fileTextInLine[i].Trim().StartsWith("/"))
+                if (fileTextInLine[i].Trim().StartsWith("*") || fileTextInLine[i].Trim().StartsWith("/"))
                 {
                     continue;
                 }
 
                 string lineCode = SpecialCharReplace(fileTextInLine[i]);
-                string[] words = lineCode.Split(new char[] { ' ',  ','});
-                for(int j = 0; j < words.Length; j++)
+                string[] words = lineCode.Split(new char[] { ' ', ',' });
+                for (int j = 0; j < words.Length; j++)
                 {
                     // Do not process word after comments mark.
-                    if(words[j] == "--")
+                    if (words[j] == "--")
                     {
                         break;
                     }
-                    if (dbObjectList.Contains(words[j].ToLower()))
+                    if (dbObjectList.Contains(words[j].ToLower()) && !dependObjectList.Contains(words[j].ToLower()))
                     {
-                        string fileToProcess = FileUtil.FileUtility.CopyFileByName(sourcePath, targetPath, words[j]);
-                        if(dependObjectList != null)
-                        {
-                            dependObjectList.Add(words[j]);
-                        }
+                        string fileToProcess = FileUtility.CopyFileByName(sourcePath, targetPath, words[j]);
+                        dependObjectList.Add(words[j].ToLower());
+
                         if (!string.IsNullOrEmpty(fileToProcess) && fileToProcess != fileNameToProcess)
                         {
                             ProcessDBDependence(dbObjectList, fileToProcess, sourcePath, targetPath, dependObjectList);
