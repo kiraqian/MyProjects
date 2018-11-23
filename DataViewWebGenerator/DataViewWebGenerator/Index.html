@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>DataView Web Generator</title>
+	<meta charset="utf-8" />
+    <link href="Content/Site.css" rel="stylesheet" />
+    <script type="text/javascript" src="Scripts/Index.js"></script>
+</head>
+<body onload="onLoadPage()">
+    <h2>DataView Web Generator</h2>
+    <div>
+        <label>Database:</label>
+        <input id="DbNameInput" type="text" value="RS8380_CSI10"/>
+        <input type="button" value="Refresh" onclick="onLoadDV()" />
+        <div id="DvList">
+        </div>
+    </div>
+</body>
+</html>
