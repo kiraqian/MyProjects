@@ -1,0 +1,32 @@
+﻿body {
+    font-family: Arial;
+    font-size: medium;
+    padding-top: 50px;
+    padding-left: 100px;
+    padding-bottom: 20px;
+    width: 60%;
+}
+
+.select-area{
+    background-color: burlywood;
+    padding: 15px 15px 15px 15px;
+    margin-bottom: 20px;
+    border-radius: 15px;
+}
+
+.display-area{
+    padding: 15px 15px 15px 15px;
+    border-radius: 15px;
+}
+
+.row {
+    background-color: bisque;
+    border-radius: 10px;
+    padding: 10px 10px 10px 10px;
+    margin-bottom: 5px;    
+}
+
+.line {
+    background-color:darkblue;
+    height:2px;
+}

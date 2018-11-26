@@ -14,7 +14,7 @@
         }
     }
 
-    var dbName = document.getElementById("DbNameInput").value;
+    var dbName = document.getElementById("DbNameSelection").value;
     document.cookie = "dbName=" + dbName;
     xmlhttp.open("GET", "Default.aspx?fn=list&db=" + dbName, true);
     xmlhttp.send();
@@ -23,8 +23,10 @@
 function onLoadPage() {
     var dbName = getCookie("dbName");
     if (dbName.length > 0) {
-        document.getElementById("DbNameInput").value = dbName;
+        document.getElementById("DbNameSelection").value = dbName;
+        //document.getElementById("DbNameInput").value = dbName;
     }
+    onLoadDV();
 }
 
 function getCookie(cname) {

@@ -53,7 +53,9 @@ WHERE ViewName IN (SELECT SourceName FROM WBDataViewLayout WHERE LayoutName = 'R
 ORDER BY ViewName";
             MyController.BuildConnectionString(server, dbName, userId, password, false);
             DataTable dtDataView = MyController.LoadDataView(selectionCommand, out errMsg);
-            string rowTemplate = "<a href=\"Default.aspx?fn=gen&v={1}\">{0}</a></br>";
+            string rowTemplate = "<div class=\"row\">";
+            rowTemplate += "   <a href=\"Default.aspx?fn=gen&v={1}\">{0}</a>";
+            rowTemplate += "</div>";
 
             foreach(DataRow row in dtDataView.Rows)
             {

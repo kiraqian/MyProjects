@@ -3,16 +3,21 @@
 <head>
     <title>DataView Web Generator</title>
 	<meta charset="utf-8" />
-    <link href="Content/Site.css" rel="stylesheet" />
+    <link href="Content/Index.css" rel="stylesheet" />
     <script type="text/javascript" src="Scripts/Index.js"></script>
 </head>
 <body onload="onLoadPage()">
     <h2>DataView Web Generator</h2>
     <div>
-        <label>Database:</label>
-        <input id="DbNameInput" type="text" value="RS8380_CSI10"/>
-        <input type="button" value="Refresh" onclick="onLoadDV()" />
-        <div id="DvList">
+        <div class="select-area">
+            <label>Database:</label>
+            <select id="DbNameSelection" onchange="onLoadDV()">
+                <option value="RS8380_CSI10">RS8380_CSI10</option>
+                <option value="CSI10">CSI10</option>
+            </select>
+        </div>
+        <div class="line"></div>
+        <div id="DvList" class="display-area">
         </div>
     </div>
 </body>
