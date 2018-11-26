@@ -7,18 +7,18 @@
     <script type="text/javascript" src="Scripts/Index.js"></script>
 </head>
 <body onload="onLoadPage()">
-    <h2>DataView Web Generator</h2>
-    <div>
-        <div class="select-area">
-            <label>Database:</label>
-            <select id="DbNameSelection" onchange="onLoadDV()">
-                <option value="RS8380_CSI10">RS8380_CSI10</option>
-                <option value="CSI10">CSI10</option>
-            </select>
+        <h2>DataView Web Generator</h2>
+        <div>
+            <div class="select-area">
+                <label>Database:</label>
+                <select id="DbNameSelection" onchange="onLoadDV()">
+                    <option value="RS8380_CSI10">RS8380_CSI10</option>
+                    <option value="CSI10">CSI10</option>
+                </select>
+            </div>
+            <div class="line"></div>
+            <div id="DvList" class="display-area">
+            </div>
         </div>
-        <div class="line"></div>
-        <div id="DvList" class="display-area">
-        </div>
-    </div>
 </body>
 </html>

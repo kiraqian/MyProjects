@@ -5,6 +5,12 @@
     padding-left: 100px;
     padding-bottom: 20px;
     width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.body-content {
+    width: 60%;
 }
 
 .select-area{

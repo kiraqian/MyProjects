@@ -202,7 +202,9 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
-    <Content Include="AppSettings.xml" />
+    <Content Include="AppSettings.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Assemblies\Utility.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -299,6 +301,7 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="WebHandler.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\AddPhoneNumber.aspx.cs">
@@ -458,6 +461,9 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WebHandler.ashx.cs">
+      <DependentUpon>WebHandler.ashx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

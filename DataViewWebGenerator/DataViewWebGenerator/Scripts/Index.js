@@ -16,7 +16,7 @@
 
     var dbName = document.getElementById("DbNameSelection").value;
     document.cookie = "dbName=" + dbName;
-    xmlhttp.open("GET", "Default.aspx?fn=list&db=" + dbName, true);
+    xmlhttp.open("GET", "WebHandler.ashx?fn=list&db=" + dbName, true);
     xmlhttp.send();
 }
 
@@ -24,7 +24,6 @@ function onLoadPage() {
     var dbName = getCookie("dbName");
     if (dbName.length > 0) {
         document.getElementById("DbNameSelection").value = dbName;
-        //document.getElementById("DbNameInput").value = dbName;
     }
     onLoadDV();
 }
