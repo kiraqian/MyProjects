@@ -1,16 +1,26 @@
 ﻿body {
-    font-family: Arial;
-    font-size: medium;
     padding-top: 50px;
-    padding-left: 100px;
+    padding-left: 20px;
     padding-bottom: 20px;
-    width: 60%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333333;
+    background-color: #ffffff;
 }
 
-.body-content {
-    width: 60%;
+a {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #333333;
+}
+
+select {
+    width: 200px;
+    height: 30px;    
 }
 
 .select-area{
@@ -30,6 +40,10 @@
     border-radius: 10px;
     padding: 10px 10px 10px 10px;
     margin-bottom: 5px;    
+}
+
+.row:hover {
+    background-color: coral;
 }
 
 .line {
