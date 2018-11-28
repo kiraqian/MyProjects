@@ -18,6 +18,6 @@ INSERT INTO #TMP_WBDataViewLayout (
    N'WBDataViewResults',--ComponentName
    N'[###Layout###]',--Layout
    N'[###ReportOrientation###]',--ReportOrientation
-   1 --DefaultView
+   [###DefaultView###] --DefaultView
 )
 
