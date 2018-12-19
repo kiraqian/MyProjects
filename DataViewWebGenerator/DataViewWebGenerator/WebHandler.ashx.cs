@@ -37,7 +37,7 @@ namespace DataViewWebGenerator
                 context.Response.AddHeader("Content-Disposition", "attachment; filename=" + shortFileName + ";");
                 context.Response.TransmitFile(fileName);
                 context.Response.Flush();                
-                File.Delete(fileName);
+                //File.Delete(fileName);
                 context.Response.End();
             }
         }
