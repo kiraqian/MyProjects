@@ -34,7 +34,7 @@ namespace DataViewWebGenerator
             SqlUtility.ExecuteStoredProcedure(connectionString, "Tools_AddPermissionGroupForDataView", parmList, out errMsg);
         }
 
-        public static string GenerateScript(string templateFolder, string dataViewName)
+        public static string GenerateScript(string templateFolder, string dataViewName, out string errMsg)
         {
             templateFolder = templateFolder.TrimEnd(new char[] { '\\' }) + "\\";
             string dataViewRowTemplate = File.ReadAllText(templateFolder + @"DataViewRowTemplate.sql");
@@ -55,9 +55,7 @@ namespace DataViewWebGenerator
             string fileHeader_Upgrade = File.ReadAllText(templateFolder + "UpgradeHeader.sql");
 
             string fileFooter_Init = File.ReadAllText(templateFolder + "InitFooter.sql");
-            string fileFooter_Upgrade = File.ReadAllText(templateFolder + "UpgradeFooter.sql");
-
-            string errMsg = "";
+            string fileFooter_Upgrade = File.ReadAllText(templateFolder + "UpgradeFooter.sql");            
 
             //FileUtility.CreateFolder(templateFolder + "\\Init");
             //FileUtility.CreateFolder(templateFolder + "\\DataPatch");

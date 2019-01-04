@@ -30,14 +30,22 @@ namespace DataViewWebGenerator
 
             if (fnName == "gen")
             {
-                resultContent = Generate(dataViewName, templatePath);
+                string errMsg;
+                resultContent = Generate(dataViewName, templatePath, dbName, configFile, out errMsg);
+
                 string shortFileName = "Rpt_" + dataViewName.Replace(" ", "") + ".sql";
                 string fileName = context.Request.MapPath("Generated") + "\\" + shortFileName;
+                if (!string.IsNullOrEmpty(errMsg))
+                {
+                    shortFileName = "Errors.txt";
+                    resultContent = "The following errors have occurred: \n";
+                    resultContent += errMsg;
+                }
                 File.WriteAllText(fileName, resultContent);
                 context.Response.AddHeader("Content-Disposition", "attachment; filename=" + shortFileName + ";");
                 context.Response.TransmitFile(fileName);
-                context.Response.Flush();                
-                //File.Delete(fileName);
+                context.Response.Flush();
+                File.Delete(fileName);
                 context.Response.End();
             }
         }
@@ -65,22 +73,26 @@ ORDER BY ViewName";
             MyController.BuildConnectionString(server, dbName, userId, password, false);
             DataTable dtDataView = MyController.LoadDataView(selectionCommand, out errMsg);
             string rowTemplate = "<div class=\"row\">";
-            rowTemplate += "   <a href=\"WebHandler.ashx?fn=gen&v={1}\">{0}</a>";
+            rowTemplate += "   <a href=\"WebHandler.ashx?fn=gen&v={1}&db={2}\">{0}</a>";
             rowTemplate += "</div>";
 
             foreach (DataRow row in dtDataView.Rows)
             {
                 string dvName = row[0].ToString();
                 string encodedDvName = HttpUtility.UrlEncode(dvName);
-                htmlContent += string.Format(rowTemplate, dvName, encodedDvName);
+                htmlContent += string.Format(rowTemplate, dvName, encodedDvName, dbName);
             }
 
             return htmlContent;
         }
 
-        private string Generate(string dataViewName, string templatePath)
+        private string Generate(string dataViewName, string templatePath, string dbName, string appSettingsPath, out string errMsg)
         {
-            string fileContent = MyController.GenerateScript(templatePath, dataViewName);
+            string server = XmlUtility.ReadNodeValue(appSettingsPath, "/Config/DBServer");
+            string userId = XmlUtility.ReadNodeValue(appSettingsPath, "/Config/UserName");
+            string password = XmlUtility.ReadNodeValue(appSettingsPath, "/Config/Password");
+            MyController.BuildConnectionString(server, dbName, userId, password, false);            
+            string fileContent = MyController.GenerateScript(templatePath, dataViewName, out errMsg);
             return fileContent;
         }
     }

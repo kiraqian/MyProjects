@@ -10,7 +10,8 @@ INSERT INTO dbo.WBDataView (
    InsertPageBreakGroup,
    ResetPageNumGroup,
    CanGrow,
-   CriteriaForm
+   CriteriaForm,
+   CaptionOverride
 ) VALUES (
    N'[###ViewName###]',--ViewName
    N'[###ReportOrientation###]',--ReportOrientation
@@ -22,7 +23,8 @@ INSERT INTO dbo.WBDataView (
    [###InsertPageBreakGroup###],--InsertPageBreakGroup
    [###ResetPageNumGroup###],--ResetPageNumGroup
    [###CanGrow###],--CanGrow
-   N'[###CriteriaForm###]' --CriteriaForm
+   N'[###CriteriaForm###]', --CriteriaForm
+   N'[###CaptionOverride###]' --CaptionOverride
 )
 ELSE
 UPDATE dbo.WBDataView
