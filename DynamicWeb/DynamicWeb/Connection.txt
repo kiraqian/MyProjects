@@ -1,0 +1,1 @@
+﻿Server=USCOVWCS10DB.infor.com;Database=CSI10;Trusted_Connection=True;
