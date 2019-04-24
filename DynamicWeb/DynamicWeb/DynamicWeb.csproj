@@ -103,6 +103,7 @@
     <Content Include="SQLScript\MetaData.sql" />
     <Content Include="SQLScript\Tables.sql" />
     <Content Include="SvrMtd.ashx" />
+    <None Include="Properties\PublishProfiles\DynamicWeb.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

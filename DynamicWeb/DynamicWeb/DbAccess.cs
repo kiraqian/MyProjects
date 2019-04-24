@@ -19,30 +19,36 @@ namespace DynamicWeb
         public string GetContentByKey(string type, string key)
         {
             string contentString = "";
+
+            if (type == "html")
+            {
+                contentString = GetContentByTable("htmlpage", key);
+            }
+
+            if (type == "javascript")
+            {
+                contentString = GetContentByTable("jscode", key);
+            }
+
+            if (type == "csharp")
+            {
+                contentString = GetContentByTable("cscode", key);
+            }
+
+            return contentString;
+        }
+
+        private string GetContentByTable(string tableName, string key)
+        {
+            string contentString = "";
             using (SqlConnection sqlConn = new SqlConnection(_connString))
             {
                 try
                 {
                     sqlConn.Open();
-                    string cmdText = "SELECT content FROM {0} WHERE pkey = '{1}'";
+                    string cmdText = string.Format("SELECT content FROM {0} WHERE pkey = '{1}'", tableName, key);
                     SqlDataAdapter sqlDa = new SqlDataAdapter("", sqlConn);
                     DataTable dt = new DataTable();
-
-                    if (type == "html")
-                    {
-                        cmdText = string.Format(cmdText, "htmlpage", key);                        
-                    }
-
-                    if (type == "javascript")
-                    {
-                        cmdText = string.Format(cmdText, "jscode", key);                        
-                    }
-
-                    if(type == "csharp")
-                    {
-                        cmdText = string.Format(cmdText, "cscode", key);                        
-                    }
-
                     sqlDa.SelectCommand.CommandText = cmdText;
                     sqlDa.Fill(dt);
 
@@ -51,7 +57,7 @@ namespace DynamicWeb
                         contentString = dt.Rows[0][0].ToString();
                     }
                 }
-                catch(Exception exp)
+                catch (Exception exp)
                 {
                     contentString = exp.Message;
                 }
