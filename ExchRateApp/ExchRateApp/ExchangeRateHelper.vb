@@ -39,11 +39,6 @@ Public Class ExchangeRateHelper
         _currCodeAttr = currCodeAttribute
         _rateAttr = rateAttribute
     End Sub
-
-    Public Sub ConfigureJSON(ByVal currCodePath As String, ByVal ratePath As String)
-        _currCodePath = currCodePath
-        _ratePath = ratePath
-    End Sub
 #End Region
 
 #Region "GetExchRateTable"
@@ -58,7 +53,7 @@ Public Class ExchangeRateHelper
         ElseIf _type = "XML_ATTR" Then
             dtRate = GetExchRateTableInNodesAttributes(_exchRateContent, _currCodePath, _ratePath, _currCodeAttr, _rateAttr)
         ElseIf _type = "JSON" Then
-            dtRate = GetExchRateTableInJSON(_exchRateContent, _currCodePath, _ratePath)
+            dtRate = GetExchRateTableInJSON(_exchRateContent)
         End If
         Return dtRate
     End Function
@@ -131,7 +126,7 @@ Public Class ExchangeRateHelper
 #End Region
 
 #Region "GetExchRateTableInJSON"
-    Private Function GetExchRateTableInJSON(ByVal jsonContent As String, ByVal currCodePath As String, ByVal ratePath As String) As DataTable
+    Private Function GetExchRateTableInJSON(ByVal jsonContent As String) As DataTable
         Dim standardCurrCode As List(Of String) = GetStandardCurrCode()
         Dim dtRate As DataTable = New DataTable()
         dtRate.Columns.Add("CurrCode")
@@ -139,25 +134,19 @@ Public Class ExchangeRateHelper
         Dim lstCurrCode As List(Of String) = New List(Of String)()
         Dim lstRate As List(Of String) = New List(Of String)()
 
-        'Dim jsonObj As JObject = JObject.Parse(jsonContent)
-        'Dim jsonTokens As IEnumerable(Of JToken) = jsonObj.SelectTokens(currCodePath)
-        'For Each jToken As JToken In jsonTokens
-        '    If jToken.Type = JsonToken.PropertyName Then
-        '        lstCurrCode.Add(jToken.Value(Of String))
-        '    ElseIf jToken.Type = JsonToken.Float Or jToken.Type = JsonToken.String Then
-        '        lstRate.Add(jToken.Value(Of String))
-        '    End If
-        'Next
-
         Dim jReader As JsonReader = New JsonTextReader(New StringReader(jsonContent))
         While jReader.Read()
-            If jReader.Value IsNot Nothing And jReader.TokenType = JsonToken.PropertyName Then
-                lstCurrCode.Add(jReader.Value)
-            ElseIf jReader.Value IsNot Nothing And (jReader.TokenType = JsonToken.Float Or
+            If jReader.TokenType = JsonToken.PropertyName Then
+                lstCurrCode.Add(IIf(jReader.Value Is Nothing, "", jReader.Value))
+                While lstRate.Count < lstCurrCode.Count
+                    lstRate.Add("")
+                End While
+            ElseIf jReader.TokenType = JsonToken.Float Or
                 jReader.TokenType = JsonToken.String Or
-                jReader.TokenType = JsonToken.Integer) Then
-                lstRate.Add(jReader.Value)
+                jReader.TokenType = JsonToken.Integer Then
+                lstRate(lstCurrCode.Count - 1) = IIf(jReader.Value Is Nothing, "", jReader.Value)
             End If
+
         End While
         Dim count As Integer = Math.Min(lstCurrCode.Count, lstRate.Count)
         For i As Integer = 0 To count - 1
