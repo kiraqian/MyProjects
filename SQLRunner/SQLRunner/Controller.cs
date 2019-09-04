@@ -27,6 +27,12 @@ namespace SQLRunner.Ctrl
             return SqlUtility.TestConnect(SqlUtility.CreateConnectionString(server, dbName, userName, password), out errMsg);
         }
 
+        public static bool TestConnection(string server, string dbName, string userName, string password, bool useWinAuthentication, out string errMsg)
+        {
+            errMsg = "";
+            return SqlUtility.TestConnect(SqlUtility.CreateConnectionString(server, dbName, userName, password, useWinAuthentication), out errMsg);
+        }
+
         public static void LoadFiles(string pach, DataTable dtFiles)
         {
             string[] fileNames = FileUtility.GetFileList(pach, "*.*", true);
@@ -44,10 +50,10 @@ namespace SQLRunner.Ctrl
             return SqlUtility.ExecuteSqlScript(DBConnectionString, sqlScriptList, out errMsg);
         }
 
-        public static List<string> GetDBNameList(string server, string userName, string password)
+        public static List<string> GetDBNameList(string server, string userName, string password, bool useWinAuth)
         {
             List<string> nameList = new List<string>();
-            DataTable dt = SqlUtility.GetDatabaseNameList(server, userName, password);
+            DataTable dt = SqlUtility.GetDatabaseNameList(server, userName, password, useWinAuth);
             if (dt != null)
             {
                 foreach (DataRow dr in dt.Rows)

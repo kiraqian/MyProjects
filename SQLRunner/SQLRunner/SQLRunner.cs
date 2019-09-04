@@ -74,7 +74,7 @@ namespace SQLRunner
 
         private void UpdateDBList()
         {
-            List<string> dbNameList = Controller.GetDBNameList(txtServer.Text, txtUserName.Text, txtPassword.Text);
+            List<string> dbNameList = Controller.GetDBNameList(txtServer.Text, txtUserName.Text, txtPassword.Text, ckWinAuth.Checked);
             cmbDatabase.DataSource = dbNameList;
         }
         #endregion
@@ -83,14 +83,28 @@ namespace SQLRunner
         private void btnTestConnection_Click(object sender, EventArgs e)
         {
             string errMsg;
-            
-            if (Controller.TestConnection(txtServer.Text, cmbDatabase.Text, txtUserName.Text, txtPassword.Text, out errMsg))
+
+            if (ckWinAuth.Checked == true)
             {
-                MessageBox.Show("Test success");
+                if (Controller.TestConnection(txtServer.Text, cmbDatabase.Text, txtUserName.Text, txtPassword.Text, ckWinAuth.Checked, out errMsg))
+                {
+                    MessageBox.Show("Test success");
+                }
+                else
+                {
+                    MessageBox.Show(errMsg);
+                }
             }
             else
             {
-                MessageBox.Show(errMsg);
+                if (Controller.TestConnection(txtServer.Text, cmbDatabase.Text, txtUserName.Text, txtPassword.Text, out errMsg))
+                {
+                    MessageBox.Show("Test success");
+                }
+                else
+                {
+                    MessageBox.Show(errMsg);
+                }
             }
         }
 
