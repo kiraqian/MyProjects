@@ -1,7 +1,7 @@
 ﻿<Config>
-  <DBServer>USCOVWCS10DB.infor.com</DBServer>
-  <DBName>CSI10</DBName>
+  <DBServer></DBServer>
+  <DBName></DBName>
   <UserName>sa</UserName>
-  <Password>Cs10#</Password>
+  <Password></Password>
   <FolderPath></FolderPath>
 </Config>
