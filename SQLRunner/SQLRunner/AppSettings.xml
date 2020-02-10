@@ -1,7 +1,7 @@
 ﻿<Config>
-  <DBServer>USCOVWSL901DB\SL901</DBServer>
-  <DBName>CSI_Demo_App</DBName>
+  <DBServer></DBServer>
+  <DBName></DBName>
   <UserName>sa</UserName>
-  <Password>Sl901#</Password>
+  <Password></Password>
   <FolderPath></FolderPath>
 </Config>

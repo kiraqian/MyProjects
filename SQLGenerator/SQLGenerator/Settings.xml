@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Settings>
-  <ConnectionString>Server=USCOVWCS10DB.infor.com;Database=CSI10;Trusted_Connection=True;</ConnectionString>
+  <ConnectionString>Server=;Database=;Trusted_Connection=True;</ConnectionString>
 </Settings>

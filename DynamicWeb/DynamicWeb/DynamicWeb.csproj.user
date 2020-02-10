@@ -3,6 +3,16 @@
   <PropertyGroup>
     <UseIISExpress>true</UseIISExpress>
     <NameOfLastUsedPublishProfile>DynamicWeb</NameOfLastUsedPublishProfile>
+<<<<<<< HEAD
+=======
+    <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+>>>>>>> SLDev
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

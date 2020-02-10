@@ -1,1 +1,1 @@
-﻿Server=USCOVWCS10DB.infor.com;Database=CSI10;User ID=sa;Password=Cs10#;
+Server=;Database=;User ID=sa;Password=;
