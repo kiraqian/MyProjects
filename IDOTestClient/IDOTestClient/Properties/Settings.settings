@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="IDOTestClient.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MachineName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">localhost</Value>
+    </Setting>
+    <Setting Name="ConfigName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CSI10_DALS_Local</Value>
+    </Setting>
+    <Setting Name="UserID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sa</Value>
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="IDOName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SLApplicationModules</Value>
+    </Setting>
+    <Setting Name="MethodName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">RunTest</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
