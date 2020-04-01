@@ -4,6 +4,20 @@
              xmlns:local="clr-namespace:IDOTestClient"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="5, 2, 5, 2"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="5, 2, 5, 2"></Setter>
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="Margin" Value="5, 2, 5, 2"></Setter>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin" Value="5, 2, 5, 2"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

@@ -70,6 +70,8 @@ namespace IDOTestClient
 
             try
             {
+                ckHideEmptyColumn.IsChecked = false;
+
                 if (string.IsNullOrEmpty(_token))
                 {
                     _token = _iDOExecute.GetToken(machineName, site, uid, pw);
@@ -106,6 +108,34 @@ namespace IDOTestClient
             {
                 MessageBox.Show(ex.Message);
             }
-        }        
+        }
+
+        private void ckHideEmptyColumn_Checked(object sender, RoutedEventArgs e)
+        {
+            HideEmptyColumnsCheckChanged(true);
+        }
+
+        private void ckHideEmptyColumn_Unchecked(object sender, RoutedEventArgs e)
+        {
+            HideEmptyColumnsCheckChanged(false);
+        }
+
+        private void HideEmptyColumnsCheckChanged(bool hideEmpty)
+        {
+            foreach (DataGridColumn dgc in dgResult.Columns)
+            {
+                bool shouldHide = hideEmpty ? true : false;
+                for (int i = 0; i < dgResult.Items.Count; i++)
+                {
+                    TextBlock textBlock = dgc.GetCellContent(dgResult.Items[i]) as TextBlock;
+                    if (textBlock != null && textBlock.Text.Length > 0)
+                    {
+                        shouldHide = false;
+                        break;
+                    }
+                }
+                dgc.Visibility = shouldHide ? Visibility.Hidden : Visibility.Visible;
+            }
+        }
     }
 }
