@@ -20,5 +20,8 @@
     <Setting Name="MethodName" Type="System.String" Scope="User">
       <Value Profile="(Default)">RunTest</Value>
     </Setting>
+    <Setting Name="Params" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -94,5 +94,17 @@ namespace IDOTestClient.Properties {
                 this["MethodName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Params {
+            get {
+                return ((string)(this["Params"]));
+            }
+            set {
+                this["Params"] = value;
+            }
+        }
     }
 }
