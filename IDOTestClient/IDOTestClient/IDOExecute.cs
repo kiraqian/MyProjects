@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Net;
+using System.Web;
 
 namespace IDOTestClient
 {
@@ -41,7 +42,7 @@ namespace IDOTestClient
         }
         public List<DataTable> ExecuteCustomLoadMethod(string machineName, string idoName,string inputParms, string output, string method, string token)
         {
-            string url = "/IDORequestService/MGRestService.svc/json/"+ idoName + "/" + output + "/adv/?customloadmethod=" + method + "&rowcap=-1&customloadmethodparms=" + inputParms;
+            string url = "/IDORequestService/MGRestService.svc/json/"+ idoName + "/" + output + "/adv/?customloadmethod=" + method + "&rowcap=0&customloadmethodparms=" + HttpUtility.UrlEncode(inputParms);
 
             HttpWebRequest webRequest = WebRequest.CreateHttp("http://"+ machineName + "/" + url);
             webRequest.Headers.Add("Authorization", token);

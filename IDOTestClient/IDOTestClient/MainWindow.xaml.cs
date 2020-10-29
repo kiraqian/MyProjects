@@ -36,7 +36,7 @@ namespace IDOTestClient
             txtPassword.Password = _settings.Password;
             txtIDOName.Text = _settings.IDOName;
             txtMethodName.Text = _settings.MethodName;
-
+            txtMethodParms.Text = _settings.Params;
             _token = "";
 
             _iDOExecute = new IDOExecute();
@@ -53,6 +53,7 @@ namespace IDOTestClient
             _settings.Password = txtPassword.Password;
             _settings.IDOName = txtIDOName.Text;
             _settings.MethodName = txtMethodName.Text;
+            _settings.Params = txtMethodParms.Text;
             _settings.Save();
         }
 
@@ -77,6 +78,7 @@ namespace IDOTestClient
                     _token = _iDOExecute.GetToken(machineName, site, uid, pw);
                 }
 
+                parms = FormatParameters(parms);
                 List<DataTable> resultTables = _iDOExecute.ExecuteCustomLoadMethod(machineName, ido, parms, output, method, _token);
                 if (resultTables.Count > 1)
                 {
@@ -88,6 +90,30 @@ namespace IDOTestClient
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private string FormatParameters(string parameters)
+        {
+            string afterFormat = string.Empty;
+            string[] arrayParams = parameters.Trim().Split(',');
+            foreach(string param in arrayParams)
+            {
+                string eachParam = param.Trim();
+                if(eachParam.ToLower() == "null")
+                {
+                    eachParam = "";
+                }
+                eachParam = eachParam.Trim(new char[] { '\"', '\'' });
+                DateTime outDateTime;
+                if(DateTime.TryParse(eachParam, out outDateTime))
+                {
+                    eachParam = $"{outDateTime.Year}{outDateTime.Month.ToString().PadLeft(2, '0')}{outDateTime.Day.ToString().PadLeft(2, '0')}";
+                }
+                afterFormat += eachParam;
+                afterFormat += ",";
+            }
+
+            return afterFormat.TrimEnd(new char[] { ',' });
         }
 
         private void btnRefreshToken_Click(object sender, RoutedEventArgs e)
