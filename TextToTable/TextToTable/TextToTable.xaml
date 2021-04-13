@@ -1,0 +1,25 @@
+﻿<Window x:Class="TextToTable.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TextToTable"
+        mc:Ignorable="d"
+        Title="Text to Table" Height="800" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <CheckBox Name="ckSpace" IsChecked="True" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0">Space</CheckBox>
+        <CheckBox Name="ckTab" IsChecked="True" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="100, 0, 0, 0">TAB</CheckBox>
+        <Button Name="btnToTable" Width="100" Grid.Column="0" Grid.Row="0" Margin="20, 2, 20, 2" HorizontalAlignment="Right" Click="btnToTable_Click">---></Button>
+        <Button Name="btnToText" Width="100" Grid.Column="1" Grid.Row="0" Margin="20, 2, 0, 2" HorizontalAlignment="Left" Click="btnToText_Click">&lt;---</Button>
+        <TextBox Name="txtTextInLine" Grid.Column="0" Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
+        <DataGrid Name="dgTable" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"></DataGrid>
+    </Grid>
+</Window>
