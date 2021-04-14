@@ -36,24 +36,6 @@ namespace TextToTable
             dgTable.ItemsSource = table.DefaultView;
         }
 
-        private void btnToText_Click(object sender, RoutedEventArgs e)
-        {
-            string resultText = "";
-            foreach(DataRow dr in table.Rows)
-            {
-                string line = "";
-                foreach(DataColumn dc in table.Columns)
-                {
-                    line += dr[dc.ColumnName].ToString();
-                    line += " ";
-                }
-                resultText += line;
-                resultText += Environment.NewLine;
-            }
-
-            txtTextInLine.Text = resultText;
-        }
-
         private void PrepareResultTable(DataTable resultTable, int columnCount)
         {
             resultTable.Rows.Clear();

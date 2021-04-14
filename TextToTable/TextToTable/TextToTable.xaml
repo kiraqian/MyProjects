@@ -12,14 +12,16 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="28"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2, 2, 2, 2"></GroupBox>
         <CheckBox Name="ckSpace" IsChecked="True" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0, 0, 0">Space</CheckBox>
         <CheckBox Name="ckTab" IsChecked="True" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="100, 0, 0, 0">TAB</CheckBox>
-        <Button Name="btnToTable" Width="100" Grid.Column="0" Grid.Row="0" Margin="20, 2, 20, 2" HorizontalAlignment="Right" Click="btnToTable_Click">---></Button>
-        <Button Name="btnToText" Width="100" Grid.Column="1" Grid.Row="0" Margin="20, 2, 0, 2" HorizontalAlignment="Left" Click="btnToText_Click">&lt;---</Button>
-        <TextBox Name="txtTextInLine" Grid.Column="0" Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap"></TextBox>
-        <DataGrid Name="dgTable" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"></DataGrid>
+        <Button Name="btnToTable" Width="130" Height="25" Grid.Column="1" Grid.Row="0" Margin="20, 2, 20, 2" HorizontalAlignment="Right" Click="btnToTable_Click">Convert to Table</Button>
+
+        <GroupBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="2, 2, 2, 2"></GroupBox>
+        <TextBox Name="txtTextInLine" Grid.Column="0" Grid.Row="1" AcceptsReturn="True" TextWrapping="Wrap" Margin="10, 10, 5, 10"></TextBox>
+        <DataGrid Name="dgTable" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="5, 10, 10, 10"></DataGrid>
     </Grid>
 </Window>
