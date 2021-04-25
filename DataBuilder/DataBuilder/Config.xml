@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Config>
+  <Server>localhost</Server>
+  <DBName>CSI10</DBName>
+  <UserId>sa</UserId>
+  <Password></Password>
+  <TrustedConnection>true</TrustedConnection>
+</Config>
