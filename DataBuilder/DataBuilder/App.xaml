@@ -4,6 +4,26 @@
              xmlns:local="clr-namespace:DataBuilder"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="grid" TargetType="{x:Type DataGrid}">
+            <Setter Property="Margin" Value="2, 4, 2, 4"></Setter>
+        </Style>
+        <Style x:Key="textbox" TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="2, 4, 2, 4"></Setter>
+            <Setter Property="AcceptsReturn" Value="True"></Setter>
+            <Setter Property="VerticalScrollBarVisibility" Value="Auto"></Setter>
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+        </Style>
+        <Style x:Key="button" TargetType="{x:Type Button}">
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="Width" Value="100"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+        </Style>
+        <Style x:Key="checkbox" TargetType="{x:Type CheckBox}">
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

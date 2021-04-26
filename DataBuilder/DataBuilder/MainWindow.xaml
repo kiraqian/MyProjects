@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataBuilder"
         mc:Ignorable="d"
-        Title="Data Builder" Height="800" Width="800">
+        Title="Data Builder" Height="800" Width="800" Margin="2, 4, 2, 4">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -17,13 +17,13 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <GroupBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"></GroupBox>
-        <TextBox Name="txtSelection" Grid.Column="0" Grid.Row="0" Margin="2, 4, 2, 4" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
-        <Button Name="btnQuery" Width="100" Height="30" Margin="10, 4, 2, 4" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" Click="btnQuery_Click">Query</Button>
-        <Button Name="btnGenCode" Width="100" Height="30" Margin="10, 36, 2, 4" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" Click="btnGenCode_Click">Generate Code</Button>
-        <CheckBox Name="ckColumnPerLine" Margin="120, 4, 2, 4" Grid.Column="1" Grid.Row="0" IsChecked="True">Column Per Line</CheckBox>
-        <CheckBox Name="ckExcludeSystemColumns" Margin="120, 25, 2, 4" Grid.Column="1" Grid.Row="0" IsChecked="True">Exclude System Columns</CheckBox>
-        <DataGrid Name="dgTableData" Grid.Column="0" Margin="2, 4, 2, 4" Grid.Row="1" Grid.ColumnSpan="2" SelectionChanged="dgTableData_SelectionChanged"></DataGrid>
-        <DataGrid Name="dgEditColumns" Margin="2, 4, 2, 4" Grid.Column="0" Grid.Row="2"></DataGrid>
-        <TextBox Name="txtCode" Grid.Column="1" Margin="2, 4, 2, 4" Grid.Row="2" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+        <TextBox Name="txtSelection" Style="{StaticResource textbox}" Grid.Column="0" Grid.Row="0" ></TextBox>
+        <Button Name="btnQuery" Style="{StaticResource button}" Margin="10, 4, 2, 4" Grid.Column="1" Grid.Row="0" Click="btnQuery_Click">Query</Button>
+        <Button Name="btnGenCode" Style="{StaticResource button}" Margin="10, 36, 2, 4" Grid.Column="1" Grid.Row="0" Click="btnGenCode_Click">Generate Code</Button>
+        <CheckBox Name="ckColumnPerLine" Style="{StaticResource checkbox}" Margin="120, 4, 2, 4" Grid.Column="1" Grid.Row="0" IsChecked="True">Column Per Line</CheckBox>
+        <CheckBox Name="ckExcludeSystemColumns" Style="{StaticResource checkbox}" Margin="120, 36, 2, 4" Grid.Column="1" Grid.Row="0" IsChecked="True">Exclude System Columns</CheckBox>
+        <DataGrid Name="dgTableData" Style="{StaticResource grid}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" SelectionChanged="dgTableData_SelectionChanged"></DataGrid>
+        <DataGrid Name="dgEditColumns" Style="{StaticResource grid}" Grid.Column="0" Grid.Row="2"></DataGrid>
+        <TextBox Name="txtCode" Style="{StaticResource textbox}" Grid.Column="1" Grid.Row="2"></TextBox>
     </Grid>
 </Window>
