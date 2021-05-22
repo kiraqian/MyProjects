@@ -18,6 +18,7 @@ namespace WordsPickup
         public MainWindow()
         {
             InitializeComponent();
+            InitTextBox();
             _pickup = new Pickup();
             _text = new Text();
             wordsPoolFilesTable = ListWordsPoolFiles(AppDomain.CurrentDomain.BaseDirectory);
@@ -41,6 +42,26 @@ namespace WordsPickup
             _pickup.DoPickup(_text.TextToList(txtWordsToPickup.Text));
             txtWordsInPool.Text = _text.ListToText(_pickup.InPoolWords);
             txtWordsOutPool.Text = _text.ListToText(_pickup.OutPoolWords);
+
+            InitTextBox();
+        }
+
+        private void InitTextBox()
+        {
+            if (txtWordsToPickup.Text.Trim() == string.Empty)
+            {
+                txtWordsToPickup.Text = "Words to pickup";
+            }
+
+            if (txtWordsInPool.Text.Trim() == string.Empty)
+            {
+                txtWordsInPool.Text = "Words in the pool";
+            }
+
+            if (txtWordsOutPool.Text.Trim() == string.Empty)
+            {
+                txtWordsOutPool.Text = "Words outside the pool";
+            }
         }
 
         private DataTable ListWordsPoolFiles(string path)
