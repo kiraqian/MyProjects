@@ -101,10 +101,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WordsPool20000.txt">
+    <Content Include="WordsPool\Google20K.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="WordsPool10000.txt">
+    <Content Include="WordsPool\CommEnWords10K.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

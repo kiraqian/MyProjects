@@ -23,26 +23,26 @@ namespace PickupUtil
 
             foreach(string word in wordsToPickup)
             {
-                if(_wordsPool.Contains(word))
+                if(_wordsPool.Contains(word.Trim()))
                 {
-                    if(distinct && !InPoolWords.Contains(word))
+                    if(distinct && !InPoolWords.Contains(word.Trim()))
                     {
-                        InPoolWords.Add(word);
+                        InPoolWords.Add(word.Trim());
                     }
                     else
                     {
-                        InPoolWords.Add(word);
+                        InPoolWords.Add(word.Trim());
                     }
                 }
                 else
                 {
-                    if (distinct && !OutPoolWords.Contains(word))
+                    if (distinct && !OutPoolWords.Contains(word.Trim()))
                     {
-                        OutPoolWords.Add(word);
+                        OutPoolWords.Add(word.Trim());
                     }
                     else
                     {
-                        OutPoolWords.Add(word);
+                        OutPoolWords.Add(word.Trim());
                     }
                 }    
             }

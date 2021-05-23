@@ -1,6 +1,5 @@
 ﻿using PickupUtil;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Windows;
 
@@ -21,7 +20,7 @@ namespace WordsPickup
             InitTextBox();
             _pickup = new Pickup();
             _text = new Text();
-            wordsPoolFilesTable = ListWordsPoolFiles(AppDomain.CurrentDomain.BaseDirectory);
+            wordsPoolFilesTable = _text.ListFiles(AppDomain.CurrentDomain.BaseDirectory);
             dgChoosePool.ItemsSource = wordsPoolFilesTable.DefaultView;
         }
 
@@ -62,12 +61,6 @@ namespace WordsPickup
             {
                 txtWordsOutPool.Text = "Words outside the pool";
             }
-        }
-
-        private DataTable ListWordsPoolFiles(string path)
-        {
-            DataTable dt = _text.ListFiles(path);
-            return dt;
         }
     }
 }

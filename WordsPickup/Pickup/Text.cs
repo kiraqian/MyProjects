@@ -14,10 +14,10 @@ namespace PickupUtil
             dataTable.Columns.Add("FullName", typeof(string));
 
             DirectoryInfo directoryInfo = Directory.CreateDirectory(path);
-            FileInfo[] filesInfo = directoryInfo.GetFiles("*.txt", SearchOption.TopDirectoryOnly);
+            FileInfo[] filesInfo = directoryInfo.GetFiles("*.txt", SearchOption.AllDirectories);
             foreach(FileInfo fileInfo in filesInfo)
             {
-                dataTable.Rows.Add(false, fileInfo.FullName);
+                dataTable.Rows.Add(true, fileInfo.FullName);
             }
             return dataTable;
         }
@@ -27,7 +27,7 @@ namespace PickupUtil
             string resultText = string.Empty;
             foreach(string line in textInList)
             {
-                resultText += line + "\r\n";
+                resultText += line.Trim() + "\r\n";
             }
             return resultText;
         }
@@ -43,7 +43,7 @@ namespace PickupUtil
             string[] lines = textInLine.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             foreach(string line in lines)
             {
-                lstText.Add(line);
+                lstText.Add(line.Trim());
             }
             return lstText;
         }
