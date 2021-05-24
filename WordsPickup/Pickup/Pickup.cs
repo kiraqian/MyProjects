@@ -21,13 +21,16 @@ namespace PickupUtil
             InPoolWords.Clear();
             OutPoolWords.Clear();
 
-            foreach(string word in wordsToPickup)
+            foreach (string word in wordsToPickup)
             {
-                if(_wordsPool.Contains(word.Trim()))
+                if (_wordsPool.Contains(word.Trim()))
                 {
-                    if(distinct && !InPoolWords.Contains(word.Trim()))
+                    if (distinct)
                     {
-                        InPoolWords.Add(word.Trim());
+                        if (!InPoolWords.Contains(word.Trim()))
+                        {
+                            InPoolWords.Add(word.Trim());
+                        }
                     }
                     else
                     {
@@ -36,15 +39,18 @@ namespace PickupUtil
                 }
                 else
                 {
-                    if (distinct && !OutPoolWords.Contains(word.Trim()))
+                    if (distinct)
                     {
-                        OutPoolWords.Add(word.Trim());
+                        if (!OutPoolWords.Contains(word.Trim()))
+                        {
+                            OutPoolWords.Add(word.Trim());
+                        }
                     }
                     else
                     {
                         OutPoolWords.Add(word.Trim());
                     }
-                }    
+                }
             }
         }
 

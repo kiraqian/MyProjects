@@ -27,14 +27,14 @@ namespace WordsPickup
         private void btnPickup_Click(object sender, RoutedEventArgs e)
         {
             string wordsPool = string.Empty;
-            foreach(DataRow dr in wordsPoolFilesTable.Rows)
+            foreach (DataRow dr in wordsPoolFilesTable.Rows)
             {
-                if(Convert.ToBoolean(dr["Select"]))
+                if (Convert.ToBoolean(dr["Select"]))
                 {
                     wordsPool += _text.ReadFileContent(dr["FullName"].ToString());
                 }
             }
-            
+
             _pickup.SetWordsPool(_text.TextToList(wordsPool));
 
             txtWordsToPickup.Text = _text.ListToText(_text.TextToList(txtWordsToPickup.Text));
