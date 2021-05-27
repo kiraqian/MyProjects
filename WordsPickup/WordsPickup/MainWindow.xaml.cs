@@ -45,11 +45,31 @@ namespace WordsPickup
             InitTextBox();
         }
 
+        private void txtWordsToPickup_GotFocus(object sender, RoutedEventArgs e)
+        {
+            InitTextBox();
+        }
+
+        private void txtWordsToPickup_LostFocus(object sender, RoutedEventArgs e)
+        {
+            InitTextBox();
+        }
+
         private void InitTextBox()
         {
-            if (txtWordsToPickup.Text.Trim() == string.Empty)
+            if (txtWordsToPickup.IsFocused)
             {
-                txtWordsToPickup.Text = "Words to pickup";
+                if (txtWordsToPickup.Text.Trim() == "Words to pickup")
+                {
+                    txtWordsToPickup.Text = string.Empty;
+                }
+            }
+            else
+            {
+                if (txtWordsToPickup.Text.Trim() == string.Empty)
+                {
+                    txtWordsToPickup.Text = "Words to pickup";
+                }
             }
 
             if (txtWordsInPool.Text.Trim() == string.Empty)
